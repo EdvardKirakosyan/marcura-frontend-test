@@ -1,6 +1,9 @@
 <div>
   <label for="route-select">Select a Route:</label>
-  <!-- <select id="route-select" (change)="onRouteSelect($event.target.value)">
-    <option *ngFor="let route of routes" [value]="route.route_id">{{ route.route_id }}</option>
-  </select> -->
+  <select id="route-select" (change)="onRouteChange($event)">
+    @for (route of routes; track route) {
+      <option [value]="route.route_id">{{ route.route_id }}</option>
+    }
+  </select>
 </div>
+

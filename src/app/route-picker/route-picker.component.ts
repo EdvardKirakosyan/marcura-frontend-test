@@ -20,8 +20,9 @@ import { HttpClient } from '@angular/common/http';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoutePickerComponent implements OnInit {
-  routes: any[] = [];
-  @Output() routeChange = new EventEmitter<any>();
+  routes: unknown[] = [];
+
+  @Output() routeChange = new EventEmitter<unknown>();
 
   constructor(
     private parseCsvService: ParseCsvService,
@@ -37,16 +38,17 @@ export class RoutePickerComponent implements OnInit {
   }
 
   onRouteChange(event: Event): void {
-    const selectedRouteId = (event.target as HTMLSelectElement).value;
-    // const selectedRoute = JSON.parse((event.target as HTMLSelectElement).value);
-    // this.routeChange.emit(selectedRoute);
-    const selectedRoute = this.routes.find(
-      (route) => route.route_id === selectedRouteId
-    );
-    if (selectedRoute) {
-      this.routeChange.emit(selectedRoute);
-    } else {
-      console.error('Selected route not found');
-    }
+    const selectedRoute = JSON.parse((event.target as HTMLSelectElement).value);
+    this.routeChange.emit(selectedRoute);
+
+    // const selectedRouteId = (event.target as HTMLSelectElement).value;
+    // const selectedRoute = this.routes.find(
+    //   (route) => route.route_id === selectedRouteId
+    // );
+    // if (selectedRoute) {
+    //   this.routeChange.emit(selectedRoute);
+    // } else {
+    //   console.error('Selected route not found');
+    // }
   }
 }

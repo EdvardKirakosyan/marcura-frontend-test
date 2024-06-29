@@ -21,6 +21,7 @@ import { latLng, tileLayer } from 'leaflet';
 export class MapComponent implements OnInit {
   map?: L.Map;
 
+  // Configuration options for the map: includes the base tile layer from OpenStreetMap, sets the maximum zoom level, attribution text, initial zoom level, and the map's initial center coordinates.
   options = {
     layers: [
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -38,6 +39,7 @@ export class MapComponent implements OnInit {
     this.initMap();
   }
 
+  // Initializes the map with predefined options
   initMap(): void {
     this.map = L.map('map').setView([20, 0], 2);
 

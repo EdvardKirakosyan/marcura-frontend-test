@@ -28,6 +28,7 @@ export class RoutePickerComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
+  // Initializes component data (using parsing CSV service)
   ngOnInit(): void {
     this.parseCsvService.getCsvData().subscribe((data) => {
       this.routes = data;
@@ -36,6 +37,7 @@ export class RoutePickerComponent implements OnInit {
     });
   }
 
+  // Handles route selection changes
   onRouteChange(event: Event): void {
     const selectedRouteId = (event.target as HTMLSelectElement).value;
     const selectedRoute = this.routes.find(

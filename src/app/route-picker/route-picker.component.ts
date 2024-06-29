@@ -44,8 +44,8 @@ export class RoutePickerComponent implements OnInit {
       (route) => route.route_id === selectedRouteId
     );
     if (selectedRoute) {
+      selectedRoute.points = JSON.parse(selectedRoute.points);
       this.routeChange.emit(selectedRoute);
-
       console.log(selectedRoute);
     } else {
       console.error('Selected route not found');

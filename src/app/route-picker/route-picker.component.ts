@@ -6,9 +6,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ParseCsvService } from '../services/parse-csv.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { ParseCsvService } from '../services/parse-csv.service';
+import RouteObjectFromCsv from '../interfaces/route-object-from-csv.interface';
 
 @Component({
   selector: 'app-route-picker',
@@ -20,7 +21,8 @@ import { HttpClient } from '@angular/common/http';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoutePickerComponent implements OnInit {
-  @Output() routeChange = new EventEmitter<any>();
+  @Output() routeChange = new EventEmitter<RouteObjectFromCsv>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   routes: any[] = [];
 
   constructor(
@@ -32,8 +34,7 @@ export class RoutePickerComponent implements OnInit {
   ngOnInit(): void {
     this.parseCsvService.getCsvData().subscribe((data) => {
       this.routes = data;
-      console.log(this.routes);
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
     });
   }
 
@@ -43,12 +44,13 @@ export class RoutePickerComponent implements OnInit {
     const selectedRoute = this.routes.find(
       (route) => route.route_id === selectedRouteId
     );
+
     if (selectedRoute) {
       selectedRoute.points = JSON.parse(selectedRoute.points);
       this.routeChange.emit(selectedRoute);
       console.log(selectedRoute);
     } else {
-      console.error('Selected route not found');
+      throw new Error('Selected route not found');
     }
   }
 }

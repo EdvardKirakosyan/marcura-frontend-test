@@ -3,11 +3,17 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import * as L from 'leaflet';
-import { circle, latLng, polygon, tileLayer } from 'leaflet';
 import 'leaflet-routing-machine';
+import { MAP_OPTIONS } from '../constants/map-options.constants';
+import { RoutePoint } from '../interfaces/route-point.interface';
+import RouteObjectFromCsv from '../interfaces/route-object-from-csv.interface';
 
 @Component({
   selector: 'app-map',
@@ -18,44 +24,43 @@ import 'leaflet-routing-machine';
   styleUrl: './map.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MapComponent {
+export class MapComponent implements OnInit, OnChanges {
   map?: L.Map;
+  routeLayer?: L.LayerGroup;
 
-  // Base tile layer options from OpenStreetMap, sets the maximum zoom level, attribution text, initial zoom level, and the map's initial center coordinates.
-  options = {
-    layers: [
-      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 20,
-        attribution:
-          'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }),
-    ],
-    zoom: 2,
-    center: latLng(50.879966, 0),
-  };
-
-  // Layers Control
-  layersControl = {
-    baseLayers: {
-      'Open Street Map': tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        { maxZoom: 18, attribution: '...' }
-      ),
-      'Open Cycle Map': tileLayer(
-        'https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=1c1d79578a054518a630a69693372af4',
-        { maxZoom: 18, attribution: '...' }
-      ),
-    },
-    overlays: {
-      'Big Circle': circle([50.879966, 0], { radius: 90000 }),
-      'Big Square': polygon([
-        [60, 0],
-        [59, 0],
-        [58, 1],
-        [57, 4],
-      ]),
-    },
-  };
+  @Input() selectedRoute?: RouteObjectFromCsv;
 
   constructor(private cdr: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.map = L.map('map', MAP_OPTIONS);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedRoute'] && this.selectedRoute) {
+      this.showRouteOnMap(this.selectedRoute);
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  showRouteOnMap(route: any): void {
+    if (!this.map) return;
+
+    // Clear existing route layer
+    if (this.routeLayer) {
+      this.map.removeLayer(this.routeLayer);
+    }
+
+    // Converting route points to LatLng objects
+    const latLngs = route.points.map((point: RoutePoint[]) => [
+      point[1],
+      point[0],
+    ]);
+    // Creating a polyline for the route
+    const polyline = L.polyline(latLngs, { color: 'blue' });
+    // Adding the polyline to a new layer group
+    this.routeLayer = L.layerGroup([polyline]).addTo(this.map);
+    // Fiting the map bounds to the polyline
+    this.map.fitBounds(polyline.getBounds());
+  }
 }

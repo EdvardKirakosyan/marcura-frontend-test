@@ -19,5 +19,14 @@ import { RoutePickerComponent } from './route-picker/route-picker.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  selectedRoute: any;
+
   constructor(private cdr: ChangeDetectorRef) {}
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onRouteChange(route: any): void {
+    this.selectedRoute = route;
+    this.cdr.markForCheck();
+  }
 }

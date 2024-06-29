@@ -1,2 +1,2 @@
-<app-map></app-map>
-<app-route-picker></app-route-picker>
+<app-map [selectedRoute]="selectedRoute"></app-map>
+<app-route-picker (routeChange)="onRouteChange($event)"></app-route-picker>

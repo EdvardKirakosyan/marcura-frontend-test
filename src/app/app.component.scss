@@ -1,4 +1,10 @@
-:host {
+.outer-container {
   display: flex;
   gap: 2em
+}
+
+.side-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }

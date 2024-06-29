@@ -8,12 +8,19 @@ import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import { HttpClient } from '@angular/common/http';
 import { MapComponent } from './map/map.component';
 import { RoutePickerComponent } from './route-picker/route-picker.component';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   providers: [HttpClient],
-  imports: [RouterOutlet, LeafletModule, MapComponent, RoutePickerComponent],
+  imports: [
+    RouterOutlet,
+    LeafletModule,
+    BaseChartDirective,
+    MapComponent,
+    RoutePickerComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

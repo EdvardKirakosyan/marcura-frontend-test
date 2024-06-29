@@ -1,2 +1,7 @@
-<app-map [selectedRoute]="selectedRoute"></app-map>
-<app-route-picker (routeChange)="onRouteChange($event)"></app-route-picker>
+<div class="outer-container">
+  <app-map [selectedRoute]="selectedRoute"></app-map>
+  <div class="side-container">
+    <!-- <app-speed-chart [routePoints]="selectedRoute?.points"></app-speed-chart> -->
+    <app-route-picker (routeChange)="onRouteChange($event)"></app-route-picker>
+  </div>
+</div>

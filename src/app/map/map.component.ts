@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  OnDestroy,
 } from '@angular/core';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import * as L from 'leaflet';
@@ -20,15 +18,16 @@ import 'leaflet-routing-machine';
   styleUrl: './map.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent {
   map?: L.Map;
 
   // Base tile layer options from OpenStreetMap, sets the maximum zoom level, attribution text, initial zoom level, and the map's initial center coordinates.
   options = {
     layers: [
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '...',
+        maxZoom: 20,
+        attribution:
+          'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }),
     ],
     zoom: 2,
@@ -59,35 +58,4 @@ export class MapComponent implements AfterViewInit {
   };
 
   constructor(private cdr: ChangeDetectorRef) {}
-
-  ngAfterViewInit() {
-    this.initMap();
-  }
-
-  // ngOnDestroy() {
-  //   if (this.map) {
-  //     this.map.off();
-  //     this.map.remove();
-  //     this.map = undefined;
-  //   }
-  // }
-
-  // Initializes the map with predefined options
-  initMap(): void {
-    // if (this.map) {
-    //   return;
-    // }
-
-    this.map = L.map('map').setView([20, 0], 2);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution:
-        'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(this.map);
-
-    L.control
-      .layers(this.layersControl.baseLayers, this.layersControl.overlays)
-      .addTo(this.map);
-  }
 }

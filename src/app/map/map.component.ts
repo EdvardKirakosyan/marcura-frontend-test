@@ -51,16 +51,43 @@ export class MapComponent implements OnInit, OnChanges {
       this.map.removeLayer(this.routeLayer);
     }
 
-    // Converting route points to LatLng objects
-    const latLngs = route.points.map((point: RoutePoint[]) => [
+    // Converting route points to LatLng objects with speed
+    const points = route.points.map((point: RoutePoint[]) => [
       point[1],
       point[0],
+      point[3],
     ]);
-    // Creating a polyline for the route
-    const polyline = L.polyline(latLngs, { color: 'blue' });
-    // Adding the polyline to a new layer group
-    this.routeLayer = L.layerGroup([polyline]).addTo(this.map);
-    // Fiting the map bounds to the polyline
-    this.map.fitBounds(polyline.getBounds());
+
+    this.routeLayer = L.layerGroup();
+
+    // Create polyline segments with different colors based on speed
+    for (let i = 0; i < points.length - 1; i++) {
+      const start = points[i];
+      const end = points[i + 1];
+      const speed = start[2];
+
+      // Changing color according to speed
+      const color = speed < 5 ? 'red' : speed < 10 ? 'yellow' : 'green';
+
+      const segment = L.polyline(
+        [L.latLng(start[0], start[1]), L.latLng(end[0], end[1])],
+        { color }
+      );
+      segment.addTo(this.routeLayer);
+    }
+
+    this.routeLayer.addTo(this.map);
+
+    // Calculat bounds of the route
+    const bounds = L.latLngBounds([]);
+    this.routeLayer.eachLayer((layer) => {
+      if (layer instanceof L.Polyline) {
+        bounds.extend(layer.getBounds());
+      }
+    });
+
+    // Fitting bounds
+    this.map.fitBounds(bounds);
+    this.cdr.markForCheck();
   }
 }

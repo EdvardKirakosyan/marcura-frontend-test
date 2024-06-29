@@ -67,7 +67,7 @@ export class MapComponent implements OnInit, OnChanges {
       const speed = start[2];
 
       // Changing color according to speed
-      const color = speed < 5 ? 'red' : speed < 10 ? 'yellow' : 'green';
+      const color = speed < 10 ? 'red' : speed < 15 ? 'yellow' : 'green';
 
       const segment = L.polyline(
         [L.latLng(start[0], start[1]), L.latLng(end[0], end[1])],

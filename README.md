@@ -14,7 +14,7 @@ This project visualizes sea routes on a global map using Angular. It processes a
 - **leg_duration**: Trip duration in milliseconds.
 - **points**: An array of vessel observations from GPS where observation is [longitude, latitude, timestamp in epoch milliseconds, actual vessel speed in knots].
 
-### Requirements:
+### Requirements for the challenge:
 
 1. Initially, no routes are shown on the map. The page should load with a global map.
 2. A route picker/filter component allows the selection of a single route to be shown on the map.
@@ -48,10 +48,6 @@ This project visualizes sea routes on a global map using Angular. It processes a
 
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 ## Build
 
 Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
@@ -59,10 +55,6 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 ## Running unit tests
 
 Run `npm test` to execute the unit tests via [Jest](https://jestjs.io/).
-
-## Running end-to-end tests
-
-To be added: Implement and configure end-to-end tests for the application.
 
 ## Linting
 
@@ -85,5 +77,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - [Leaflet](https://leafletjs.com/)
 - [Chart.js](https://www.chartjs.org/)
 - [PapaParse](https://www.papaparse.com/)
-- [Edward Kirakosyan](https://github.com/EdwardKirakosyan) - Initial work
+- [Edward Kirakosyan](https://github.com/EdwardKirakosyan) - Author
 

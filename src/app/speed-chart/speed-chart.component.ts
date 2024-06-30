@@ -33,28 +33,27 @@ export class SpeedChartComponent implements OnChanges {
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    // Tracking rout change
     if (changes['routePoints'] && this.routePoints) {
       this.updateChart();
     }
+    this.chart?.update();
   }
 
   // Updating chart data according to selected route
   updateChart(): void {
+    // Ensuring route readines
     if (!this.routePoints) {
       return;
     }
 
+    // Transform routePoints into chart data format and update chart dataset and labels
     const data = this.routePoints.map((point) => ({
       x: new Date(point[2]).getTime(),
       y: point[3],
     }));
-
     this.lineChartData.datasets[0].data = data;
     this.lineChartData.labels = data.map((point) => new Date(point.x));
-
-    if (this.chart) {
-      this.chart.update();
-    }
 
     this.cdr.markForCheck();
   }

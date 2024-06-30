@@ -5,16 +5,14 @@ import {
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
-import { HttpClient } from '@angular/common/http';
+import { BaseChartDirective } from 'ng2-charts';
 import { MapComponent } from './map/map.component';
 import { RoutePickerComponent } from './route-picker/route-picker.component';
-import { BaseChartDirective } from 'ng2-charts';
 import { SpeedChartComponent } from './speed-chart/speed-chart.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  providers: [HttpClient],
   imports: [
     RouterOutlet,
     LeafletModule,

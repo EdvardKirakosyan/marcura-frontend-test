@@ -6,7 +6,6 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ParseCsvService } from '../services/parse-csv.service';
 import RouteObjectFromCsv from '../interfaces/route-object-from-csv.interface';
@@ -15,7 +14,6 @@ import RouteObjectFromCsv from '../interfaces/route-object-from-csv.interface';
   selector: 'app-route-picker',
   standalone: true,
   providers: [HttpClient],
-  imports: [CommonModule],
   templateUrl: './route-picker.component.html',
   styleUrl: './route-picker.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

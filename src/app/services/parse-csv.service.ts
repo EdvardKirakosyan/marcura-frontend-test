@@ -9,6 +9,7 @@ import * as Papa from 'papaparse';
 export class ParseCsvService {
   constructor(private http: HttpClient) {}
 
+  // Grabing and parsing data from csv
   getCsvData(): Observable<unknown[]> {
     return this.http
       .get('/assets/web_challenge.csv', { responseType: 'text' })

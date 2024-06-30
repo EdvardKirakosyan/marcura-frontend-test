@@ -12,6 +12,7 @@ import 'chartjs-adapter-date-fns';
 import { LINE_CHART_DATA } from '../constants/chart-data-config.constant';
 import { LINE_CHART_OPTIONS } from '../constants/chart-options-config.constant';
 import { LINE_CHART_TYPE } from '../constants/chart-type-config.constant';
+import { RoutePoint } from '../interfaces/route-point.interface';
 
 @Component({
   selector: 'app-speed-chart',
@@ -26,26 +27,21 @@ export class SpeedChartComponent implements OnChanges {
   lineChartOptions = LINE_CHART_OPTIONS;
   lineChartType = LINE_CHART_TYPE;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Input() routePoints?: any[];
+  @Input() routePoints?: RoutePoint[];
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     // Tracking rout change
-    if (changes['routePoints'] && this.routePoints) {
-      this.updateChart();
-    }
+    if (changes['routePoints'] && this.routePoints) this.updateChart();
     this.chart?.update();
   }
 
   // Updating chart data according to selected route
   updateChart(): void {
     // Ensuring route readines
-    if (!this.routePoints) {
-      return;
-    }
+    if (!this.routePoints) return;
 
     // Transform routePoints into chart data format and update chart dataset and labels
     const data = this.routePoints.map((point) => ({

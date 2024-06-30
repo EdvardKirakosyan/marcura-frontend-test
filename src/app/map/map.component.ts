@@ -39,8 +39,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  showRouteOnMap(route: any): void {
+  showRouteOnMap(route): void {
     // Ensuring that map is ready
     if (!this.map) return;
 

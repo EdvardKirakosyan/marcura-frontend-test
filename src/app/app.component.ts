@@ -9,6 +9,8 @@ import { BaseChartDirective } from 'ng2-charts';
 import { MapComponent } from './map/map.component';
 import { RoutePickerComponent } from './route-picker/route-picker.component';
 import { SpeedChartComponent } from './speed-chart/speed-chart.component';
+import RouteObjectFromCsv from './interfaces/route-object-from-csv.interface';
+import { RoutePoint } from './interfaces/route-point.interface';
 
 @Component({
   selector: 'app-root',
@@ -26,17 +28,14 @@ import { SpeedChartComponent } from './speed-chart/speed-chart.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectedRoute: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  routePoints?: any[];
+  selectedRoute?: RouteObjectFromCsv;
+  routePoints?: RoutePoint[];
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onRouteChange(route: any): void {
+  onRouteChange(route?: RouteObjectFromCsv): void {
     this.selectedRoute = route;
-    this.routePoints = route.points;
+    this.routePoints = route?.points;
     this.cdr.markForCheck();
   }
 }

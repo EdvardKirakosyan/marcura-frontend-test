@@ -1,4 +1,4 @@
-export default interface RouteObjectAsStrings {
+export default interface ISerializedShipRoute {
   from_port: string;
   leg_duration: string;
   points: string;

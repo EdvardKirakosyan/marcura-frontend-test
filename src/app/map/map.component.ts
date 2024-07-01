@@ -10,8 +10,8 @@ import {
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import * as L from 'leaflet';
 import { MAP_OPTIONS } from '../constants/map-options.constants';
-import { RoutePoint } from '../interfaces/route-point.interface';
-import RouteObjectFromCsv from '../interfaces/route-object-from-csv.interface';
+import { IRoutePoint } from '../interfaces/IRoutePoint.interface';
+import IShipRoute from '../interfaces/IShipRoute.interface';
 
 @Component({
   selector: 'app-map',
@@ -22,10 +22,10 @@ import RouteObjectFromCsv from '../interfaces/route-object-from-csv.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent implements AfterViewInit, OnChanges {
-  map?: L.Map;
-  routeLayer?: L.LayerGroup;
+  public map?: L.Map;
+  public routeLayer?: L.LayerGroup;
 
-  @Input() selectedRoute?: RouteObjectFromCsv;
+  @Input() selectedRoute?: IShipRoute;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -39,7 +39,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  showRouteOnMap(route): void {
+  public showRouteOnMap(route): void {
     // Ensuring that map is ready
     if (!this.map) return;
 
@@ -49,7 +49,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
 
     // Converting route points to LatLng objects with speed
-    const points = route.points.map((point: RoutePoint[]) => [
+    const points = route.points.map((point: IRoutePoint[]) => [
       point[1],
       point[0],
       point[3],

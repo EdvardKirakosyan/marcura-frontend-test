@@ -9,10 +9,12 @@ import {
 } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import 'chartjs-adapter-date-fns';
-import { LINE_CHART_DATA } from '../constants/chart-data-config.constant';
-import { LINE_CHART_OPTIONS } from '../constants/chart-options-config.constant';
-import { LINE_CHART_TYPE } from '../constants/chart-type-config.constant';
-import { RoutePoint } from '../interfaces/route-point.interface';
+import { IRoutePoint } from '../interfaces/IRoutePoint.interface';
+import {
+  LINE_CHART_DATA,
+  LINE_CHART_OPTIONS,
+  LINE_CHART_TYPE,
+} from '../constants/chart-data-config.constant';
 
 @Component({
   selector: 'app-speed-chart',
@@ -23,11 +25,11 @@ import { RoutePoint } from '../interfaces/route-point.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpeedChartComponent implements OnChanges {
-  lineChartData = LINE_CHART_DATA;
-  lineChartOptions = LINE_CHART_OPTIONS;
-  lineChartType = LINE_CHART_TYPE;
+  public lineChartData = LINE_CHART_DATA;
+  public lineChartOptions = LINE_CHART_OPTIONS;
+  public lineChartType = LINE_CHART_TYPE;
 
-  @Input() routePoints?: RoutePoint[];
+  @Input() routePoints?: IRoutePoint[];
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   constructor(private cdr: ChangeDetectorRef) {}
@@ -39,7 +41,7 @@ export class SpeedChartComponent implements OnChanges {
   }
 
   // Updating chart data according to selected route
-  updateChart(): void {
+  public updateChart(): void {
     // Ensuring route readines
     if (!this.routePoints) return;
 

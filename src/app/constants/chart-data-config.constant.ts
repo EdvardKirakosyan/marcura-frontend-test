@@ -1,4 +1,5 @@
 import { ChartConfiguration } from 'chart.js';
+import { ChartType } from 'chart.js';
 
 export const LINE_CHART_DATA: ChartConfiguration['data'] = {
   datasets: [
@@ -13,3 +14,27 @@ export const LINE_CHART_DATA: ChartConfiguration['data'] = {
   ],
   labels: [],
 };
+
+export const LINE_CHART_OPTIONS: ChartConfiguration['options'] = {
+  responsive: true,
+  scales: {
+    x: {
+      type: 'time',
+      time: {
+        unit: 'minute',
+      },
+      title: {
+        display: true,
+        text: 'Time',
+      },
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Speed (knots)',
+      },
+    },
+  },
+};
+
+export const LINE_CHART_TYPE: ChartType = 'line';

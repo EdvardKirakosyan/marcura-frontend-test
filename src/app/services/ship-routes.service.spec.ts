@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ParseCsvService } from './parse-csv.service';
+import { ShipRoutesService } from './ship-routes.service';
 
 describe('ParseCsvService', () => {
-  let service: ParseCsvService;
+  let service: ShipRoutesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ParseCsvService);
+    service = TestBed.inject(ShipRoutesService);
   });
 
   it('should be created', () => {

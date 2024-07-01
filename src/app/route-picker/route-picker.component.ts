@@ -6,9 +6,9 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ParseCsvService } from '../services/parse-csv.service';
-import RouteObjectFromCsv from '../interfaces/route-object-from-csv.interface';
+import { ShipRoutesService } from '../services/ship-routes.service';
 import { ROUTE_NOT_FOUND_ERROR } from '../constants/error-messages.constant';
+import IShipRoute from '../interfaces/IShipRoute.interface';
 
 @Component({
   selector: 'app-route-picker',
@@ -18,33 +18,36 @@ import { ROUTE_NOT_FOUND_ERROR } from '../constants/error-messages.constant';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoutePickerComponent implements OnInit {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  routes: any[] = [];
+  public routes;
 
-  @Output() routeChange = new EventEmitter<RouteObjectFromCsv>();
+  @Output() routeChange = new EventEmitter<IShipRoute>();
 
   constructor(
-    private parseCsvService: ParseCsvService,
+    private shipRoutesService: ShipRoutesService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     // Initializing component data (using parsing service)
-    this.parseCsvService.getCsvData().subscribe((data) => {
+    this.shipRoutesService.getCsvData().subscribe((data) => {
       this.routes = data;
       this.cdr.markForCheck();
     });
   }
 
   // Handling route selection changes
-  onRouteChange(event: Event): void {
+  public onRouteChange(event: Event): void {
     const selectedRouteId = (event.target as HTMLSelectElement).value;
     const selectedRoute = this.routes.find(
       (route) => route.route_id === selectedRouteId
     );
 
     if (selectedRoute) {
-      selectedRoute.points = JSON.parse(selectedRoute.points);
+      // Checking if selectedRoute.points is already an object (for Unexpected non-whitespace character issue)
+      if (typeof selectedRoute.points === 'string') {
+        selectedRoute.points = JSON.parse(selectedRoute.points);
+      }
+
       this.routeChange.emit(selectedRoute);
     } else {
       throw new Error(ROUTE_NOT_FOUND_ERROR);

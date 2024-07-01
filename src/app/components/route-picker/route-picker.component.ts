@@ -8,9 +8,9 @@ import {
   Output,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ShipRoutesService } from '../services/ship-routes.service';
-import { ROUTE_NOT_FOUND_ERROR } from '../constants/error-messages.constant';
-import IShipRoute from '../interfaces/IShipRoute.interface';
+import { ShipRoutesService } from '../../services/ship-routes.service';
+import { ROUTE_NOT_FOUND_ERROR } from '../../constants/error-messages.constant';
+import IShipRoute from '../../interfaces/IShipRoute.interface';
 
 @Component({
   selector: 'app-route-picker',

@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import * as L from 'leaflet';
-import { MAP_OPTIONS } from '../constants/map-options.constants';
-import { IRoutePoint } from '../interfaces/IRoutePoint.interface';
-import IShipRoute from '../interfaces/IShipRoute.interface';
-import { NumberTuple } from '../interfaces/CustomTypes';
+import { MAP_OPTIONS } from '../../constants/map-options.constants';
+import { IRoutePoint } from '../../interfaces/IRoutePoint.interface';
+import IShipRoute from '../../interfaces/IShipRoute.interface';
+import { NumberTuple } from '../../interfaces/CustomTypes';
 
 @Component({
   selector: 'app-map',

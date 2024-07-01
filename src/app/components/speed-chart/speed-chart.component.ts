@@ -9,12 +9,12 @@ import {
 } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import 'chartjs-adapter-date-fns';
-import { IRoutePoint } from '../interfaces/IRoutePoint.interface';
+import { IRoutePoint } from '../../interfaces/IRoutePoint.interface';
 import {
   LINE_CHART_DATA,
   LINE_CHART_OPTIONS,
   LINE_CHART_TYPE,
-} from '../constants/chart-data-config.constant';
+} from '../../constants/chart-data-config.constant';
 
 @Component({
   selector: 'app-speed-chart',

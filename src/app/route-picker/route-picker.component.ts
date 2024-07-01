@@ -7,10 +7,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ShipRoutesService } from '../services/ship-routes.service';
 import { ROUTE_NOT_FOUND_ERROR } from '../constants/error-messages.constant';
 import IShipRoute from '../interfaces/IShipRoute.interface';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-route-picker',
@@ -20,7 +20,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoutePickerComponent implements OnInit {
-  public routes;
+  public routes: IShipRoute[] = [];
 
   @Output() routeChange = new EventEmitter<IShipRoute>();
 

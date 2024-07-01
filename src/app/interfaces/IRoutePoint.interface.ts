@@ -1,4 +1,4 @@
-export interface RoutePoint {
+export interface IRoutePoint {
   longitude: number;
   latitude: number;
   timestamp: number;

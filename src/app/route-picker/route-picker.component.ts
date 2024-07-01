@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   EventEmitter,
   OnInit,
   Output,
@@ -9,6 +10,7 @@ import {
 import { ShipRoutesService } from '../services/ship-routes.service';
 import { ROUTE_NOT_FOUND_ERROR } from '../constants/error-messages.constant';
 import IShipRoute from '../interfaces/IShipRoute.interface';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-route-picker',
@@ -24,15 +26,19 @@ export class RoutePickerComponent implements OnInit {
 
   constructor(
     private shipRoutesService: ShipRoutesService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private destroyRef: DestroyRef
   ) {}
 
   ngOnInit(): void {
     // Initializing component data (using parsing service)
-    this.shipRoutesService.getCsvData().subscribe((data) => {
-      this.routes = data;
-      this.cdr.markForCheck();
-    });
+    this.shipRoutesService
+      .getCsvData()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        this.routes = data;
+        this.cdr.markForCheck();
+      });
   }
 
   // Handling route selection changes

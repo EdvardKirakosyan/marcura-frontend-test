@@ -40,10 +40,12 @@ export class MapComponent implements AfterViewInit, OnChanges {
   }
 
   public showRouteOnMap(route): void {
-    // Ensuring that map is ready
-    if (!this.map) return;
+    // Ensuring that the map is ready
+    if (!this.map) {
+      return;
+    }
 
-    // Clear existing route layer
+    // Clearing existing route layer
     if (this.routeLayer) {
       this.map?.removeLayer(this.routeLayer);
     }
@@ -55,7 +57,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
       point[3],
     ]);
 
-    // Adding rout layer to map
+    // Adding rout layer to the map
     this.routeLayer = L.layerGroup().addTo(this.map);
 
     // Creating polyline segments with different colors based on speed
@@ -71,7 +73,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
       }).addTo(this.routeLayer);
     }
 
-    // Calculating bounds of the route and fitting it
+    // Calculating the bounds of the route and fitting it
     const bounds = L.latLngBounds([]);
     this.routeLayer.eachLayer((layer) => {
       if (layer instanceof L.Polyline) {

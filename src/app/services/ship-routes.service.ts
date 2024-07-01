@@ -10,7 +10,7 @@ import IShipRoute from '../interfaces/IShipRoute.interface';
 export class ShipRoutesService {
   constructor(private http: HttpClient) {}
 
-  // Grabing and parsing data from csv
+  // Grabbing and parsing data from CSV
   public getCsvData(): Observable<IShipRoute[]> {
     return this.http
       .get('/assets/web_challenge.csv', { responseType: 'text' })

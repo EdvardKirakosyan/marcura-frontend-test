@@ -1,6 +1,8 @@
 import { ChartConfiguration } from 'chart.js';
 import { ChartType } from 'chart.js';
 
+export const LINE_CHART_TYPE: ChartType = 'line';
+
 export const LINE_CHART_DATA: ChartConfiguration['data'] = {
   datasets: [
     {
@@ -35,5 +37,3 @@ export const LINE_CHART_OPTIONS: ChartConfiguration['options'] = {
     },
   },
 };
-
-export const LINE_CHART_TYPE: ChartType = 'line';

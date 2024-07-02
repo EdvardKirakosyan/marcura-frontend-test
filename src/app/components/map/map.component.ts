@@ -74,11 +74,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
     if (this.routeLayer) {
       this.map?.removeLayer(this.routeLayer);
     }
+    // Visualizing a ship's route on the map by creating colored polyline segments based on speed
     this.routeLayer = L.layerGroup().addTo(this.map);
-
     const points = this.convertRoutePoints(route);
     this.createPolylineSegments(points);
-
     // Calculating the bounds of the route and fitting it
     const bounds = L.latLngBounds([]);
     this.routeLayer.eachLayer((layer) => {

@@ -41,14 +41,12 @@ export class SpeedChartComponent implements OnChanges {
     }
     this.chart?.update();
   }
-
   // Updating chart data according to the selected route
   public updateChart(): void {
     // Ensuring route readiness
     if (!this.routePoints) {
       return;
     }
-
     // Transform routePoints into a chart data format and update chart datasets and labels
     const data = this.routePoints.map((point) => ({
       x: new Date(point[2]).getTime(),
@@ -56,7 +54,6 @@ export class SpeedChartComponent implements OnChanges {
     }));
     this.lineChartData.datasets[0].data = data;
     this.lineChartData.labels = data.map((point) => new Date(point.x));
-
     this.cdr.markForCheck();
   }
 }

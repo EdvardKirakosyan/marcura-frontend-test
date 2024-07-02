@@ -52,7 +52,6 @@ export class RoutePickerComponent implements OnInit {
     const selectedRoute = this.routes.find(
       (route) => route.route_id === selectedRouteId
     );
-
     if (selectedRoute) {
       this.routeChange.emit(selectedRoute);
     } else {

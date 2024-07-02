@@ -1,6 +1,6 @@
 <div class="outer-container">
   <app-map [selectedRoute]="selectedRoute"></app-map>
-  <div class="side-container">
+  <div>
     <app-speed-chart [routePoints]="routePoints"></app-speed-chart>
     <app-route-picker (routeChange)="onRouteChange($event)"></app-route-picker>
   </div>

@@ -52,16 +52,15 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
   private createPolylineSegments(points: NumberTuple[]): void {
     for (let i = 0; i < points.length - 1; i++) {
-      const start = points[i];
-      const end = points[i + 1];
-      const speed = start[2];
+      const [startLat, startLng, startSpeed] = points[i];
+      const [endLat, endLng] = points[i + 1];
       const color =
-        speed < Speed.LOW_SPEED
+        startSpeed < Speed.LOW_SPEED
           ? Colors.RED
-          : speed < Speed.HIGH_SPEED
+          : startSpeed < Speed.HIGH_SPEED
           ? Colors.YELLOW
           : Colors.GREEN;
-      L.polyline([L.latLng(start[0], start[1]), L.latLng(end[0], end[1])], {
+      L.polyline([L.latLng(startLat, startLng), L.latLng(endLat, endLng)], {
         color,
       }).addTo(this.routeLayer!);
     }
@@ -80,7 +79,6 @@ export class MapComponent implements AfterViewInit, OnChanges {
     const points = this.convertRoutePoints(route);
     this.createPolylineSegments(points);
     const bounds = L.latLngBounds([]);
-
     this.routeLayer.eachLayer((layer) => {
       if (layer instanceof L.Polyline) {
         bounds.extend(layer.getBounds());

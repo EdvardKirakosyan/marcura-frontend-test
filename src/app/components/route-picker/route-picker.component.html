@@ -1,8 +1,11 @@
 <div class="route-picker-container">
-  <label for="route-select">Select a Route:</label>
-  <select id="route-select" (change)="onRouteChange($event)">
-    @for (route of routes; track route.route_id) {
-      <option [value]="route.route_id">{{ route.from_port + " to " + route.to_port }}</option>
-    }
-  </select>
+  <h3>Ship Routes</h3>
+  <mat-form-field>
+      <mat-label>Select a Route:</mat-label>
+      <mat-select (selectionChange)="onRouteChange($event)">
+        @for (route of routes; track route.route_id) {
+          <mat-option [value]="route.route_id">{{ route.from_port + " to " + route.to_port }}</mat-option>
+        }
+    </mat-select>
+  </mat-form-field>
 </div>

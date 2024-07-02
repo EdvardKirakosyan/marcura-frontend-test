@@ -49,10 +49,6 @@ export class RoutePickerComponent implements OnInit {
     );
 
     if (selectedRoute) {
-      // Checking if selectedRoute.points is already an object (for Unexpected non-whitespace character issues)
-      if (typeof selectedRoute.points === 'string') {
-        selectedRoute.points = JSON.parse(selectedRoute.points);
-      }
       this.routeChange.emit(selectedRoute);
     } else {
       throw new Error(ROUTE_NOT_FOUND_ERROR);

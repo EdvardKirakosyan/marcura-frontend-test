@@ -36,7 +36,6 @@ export class RoutePickerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Initializing component data (using parsing service)
     this.shipRoutesService
       .getCsvData()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -46,12 +45,12 @@ export class RoutePickerComponent implements OnInit {
       });
   }
 
-  // Handling route selection changes
   public onRouteChange(event: MatSelectChange): void {
     const selectedRouteId = event.value;
     const selectedRoute = this.routes.find(
       (route) => route.route_id === selectedRouteId
     );
+
     if (selectedRoute) {
       this.routeChange.emit(selectedRoute);
     } else {

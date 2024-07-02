@@ -14,6 +14,7 @@ import { IRoutePoint } from '../../interfaces/IRoutePoint.interface';
 import IShipRoute from '../../interfaces/IShipRoute.interface';
 import { NumberTuple } from '../../interfaces/CustomTypes';
 import { Colors } from '../../constants/colors.enum';
+import { Speed } from '../../constants/speed.enum';
 
 @Component({
   selector: 'app-map',
@@ -24,8 +25,8 @@ import { Colors } from '../../constants/colors.enum';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapComponent implements AfterViewInit, OnChanges {
-  public map?: L.Map;
-  public routeLayer?: L.LayerGroup;
+  private map?: L.Map;
+  private routeLayer?: L.LayerGroup;
 
   @Input() selectedRoute?: IShipRoute;
 
@@ -41,8 +42,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  // Converting route points to LatLng objects with speed
-  public convertRoutePoints(route: IShipRoute): NumberTuple[] {
+  private convertRoutePoints(route: IShipRoute): NumberTuple[] {
     return route.points.map((point: IRoutePoint) => [
       point[1],
       point[0],
@@ -50,36 +50,37 @@ export class MapComponent implements AfterViewInit, OnChanges {
     ]);
   }
 
-  // Creating polyline segments with different colors based on speed
-  public createPolylineSegments(points: NumberTuple[]): void {
+  private createPolylineSegments(points: NumberTuple[]): void {
     for (let i = 0; i < points.length - 1; i++) {
       const start = points[i];
       const end = points[i + 1];
       const speed = start[2];
-      // Changing color according to speed
       const color =
-        speed < 10 ? Colors.RED : speed < 15 ? Colors.YELLOW : Colors.GREEN;
+        speed < Speed.LOW_SPEED
+          ? Colors.RED
+          : speed < Speed.HIGH_SPEED
+          ? Colors.YELLOW
+          : Colors.GREEN;
       L.polyline([L.latLng(start[0], start[1]), L.latLng(end[0], end[1])], {
         color,
       }).addTo(this.routeLayer!);
     }
   }
 
-  public showRouteOnMap(route: IShipRoute): void {
-    // Ensuring that the map is ready
+  private showRouteOnMap(route: IShipRoute): void {
     if (!this.map) {
       return;
     }
-    // Clearing existing route layer
+
     if (this.routeLayer) {
       this.map?.removeLayer(this.routeLayer);
     }
-    // Visualizing a ship's route on the map by creating colored polyline segments based on speed
+
     this.routeLayer = L.layerGroup().addTo(this.map);
     const points = this.convertRoutePoints(route);
     this.createPolylineSegments(points);
-    // Calculating the bounds of the route and fitting it
     const bounds = L.latLngBounds([]);
+
     this.routeLayer.eachLayer((layer) => {
       if (layer instanceof L.Polyline) {
         bounds.extend(layer.getBounds());

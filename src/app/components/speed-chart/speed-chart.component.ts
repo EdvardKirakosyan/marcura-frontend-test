@@ -25,8 +25,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpeedChartComponent implements OnChanges {
-  public lineChartData = LINE_CHART_DATA;
   public lineChartOptions = LINE_CHART_OPTIONS;
+  public lineChartData = LINE_CHART_DATA;
   public lineChartType = LINE_CHART_TYPE;
 
   @Input() routePoints?: IRoutePoint[];
@@ -35,23 +35,22 @@ export class SpeedChartComponent implements OnChanges {
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Tracking rout change
     if (changes['routePoints'] && this.routePoints) {
       this.updateChart();
     }
     this.chart?.update();
   }
-  // Updating chart data according to the selected route
-  public updateChart(): void {
-    // Ensuring route readiness
+
+  private updateChart(): void {
     if (!this.routePoints) {
       return;
     }
-    // Transform routePoints into a chart data format and update chart datasets and labels
+
     const data = this.routePoints.map((point) => ({
       x: new Date(point[2]).getTime(),
       y: point[3],
     }));
+
     this.lineChartData.datasets[0].data = data;
     this.lineChartData.labels = data.map((point) => new Date(point.x));
     this.cdr.markForCheck();

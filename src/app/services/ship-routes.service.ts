@@ -12,7 +12,6 @@ import { IRoutePoint } from '../interfaces/IRoutePoint.interface';
 export class ShipRoutesService {
   constructor(private http: HttpClient) {}
 
-  // Grabbing and parsing data from CSV
   public getCsvData(): Observable<IShipRoute[]> {
     return this.http
       .get('/assets/web_challenge.csv', { responseType: 'text' })

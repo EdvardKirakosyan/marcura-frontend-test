@@ -5,14 +5,13 @@ export const LINE_CHART_DATA: ChartConfiguration['data'] = {
   datasets: [
     {
       data: [],
-      label: 'Speed (knots)',
+      label: 'Speed',
       borderColor: 'blue',
       backgroundColor: 'rgba(0,0,255,0.3)',
       fill: true,
       hidden: false,
     },
   ],
-  labels: [],
 };
 
 export const LINE_CHART_OPTIONS: ChartConfiguration['options'] = {

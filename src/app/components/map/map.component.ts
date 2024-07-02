@@ -13,6 +13,7 @@ import { MAP_OPTIONS } from '../../constants/map-options.constants';
 import { IRoutePoint } from '../../interfaces/IRoutePoint.interface';
 import IShipRoute from '../../interfaces/IShipRoute.interface';
 import { NumberTuple } from '../../interfaces/CustomTypes';
+import { Colors } from '../../constants/colors.enum';
 
 @Component({
   selector: 'app-map',
@@ -56,7 +57,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
       const end = points[i + 1];
       const speed = start[2];
       // Changing color according to speed
-      const color = speed < 10 ? 'red' : speed < 15 ? 'yellow' : 'green';
+      const color =
+        speed < 10 ? Colors.RED : speed < 15 ? Colors.YELLOW : Colors.GREEN;
       L.polyline([L.latLng(start[0], start[1]), L.latLng(end[0], end[1])], {
         color,
       }).addTo(this.routeLayer!);

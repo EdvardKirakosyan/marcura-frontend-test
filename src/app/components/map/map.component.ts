@@ -9,9 +9,10 @@ import {
 } from '@angular/core';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import * as L from 'leaflet';
-import { MAP_OPTIONS } from '../constants/map-options.constants';
-import { IRoutePoint } from '../interfaces/IRoutePoint.interface';
-import IShipRoute from '../interfaces/IShipRoute.interface';
+import { MAP_OPTIONS } from '../../constants/map-options.constants';
+import { IRoutePoint } from '../../interfaces/IRoutePoint.interface';
+import IShipRoute from '../../interfaces/IShipRoute.interface';
+import { NumberTuple } from '../../interfaces/CustomTypes';
 
 @Component({
   selector: 'app-map',
@@ -39,39 +40,44 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  public showRouteOnMap(route): void {
-    // Ensuring that map is ready
-    if (!this.map) return;
-
-    // Clear existing route layer
-    if (this.routeLayer) {
-      this.map?.removeLayer(this.routeLayer);
-    }
-
-    // Converting route points to LatLng objects with speed
-    const points = route.points.map((point: IRoutePoint[]) => [
+  // Converting route points to LatLng objects with speed
+  public convertRoutePoints(route: IShipRoute): NumberTuple[] {
+    return route.points.map((point: IRoutePoint) => [
       point[1],
       point[0],
       point[3],
     ]);
+  }
 
-    // Adding rout layer to map
-    this.routeLayer = L.layerGroup().addTo(this.map);
-
-    // Creating polyline segments with different colors based on speed
+  // Creating polyline segments with different colors based on speed
+  public createPolylineSegments(points: NumberTuple[]): void {
     for (let i = 0; i < points.length - 1; i++) {
       const start = points[i];
       const end = points[i + 1];
       const speed = start[2];
-
       // Changing color according to speed
       const color = speed < 10 ? 'red' : speed < 15 ? 'yellow' : 'green';
       L.polyline([L.latLng(start[0], start[1]), L.latLng(end[0], end[1])], {
         color,
-      }).addTo(this.routeLayer);
+      }).addTo(this.routeLayer!);
     }
+  }
 
-    // Calculating bounds of the route and fitting it
+  public showRouteOnMap(route: IShipRoute): void {
+    // Ensuring that the map is ready
+    if (!this.map) {
+      return;
+    }
+    // Clearing existing route layer
+    if (this.routeLayer) {
+      this.map?.removeLayer(this.routeLayer);
+    }
+    this.routeLayer = L.layerGroup().addTo(this.map);
+
+    const points = this.convertRoutePoints(route);
+    this.createPolylineSegments(points);
+
+    // Calculating the bounds of the route and fitting it
     const bounds = L.latLngBounds([]);
     this.routeLayer.eachLayer((layer) => {
       if (layer instanceof L.Polyline) {

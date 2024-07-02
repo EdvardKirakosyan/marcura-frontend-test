@@ -9,12 +9,12 @@ import {
 } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import 'chartjs-adapter-date-fns';
-import { IRoutePoint } from '../interfaces/IRoutePoint.interface';
+import { IRoutePoint } from '../../interfaces/IRoutePoint.interface';
 import {
   LINE_CHART_DATA,
   LINE_CHART_OPTIONS,
   LINE_CHART_TYPE,
-} from '../constants/chart-data-config.constant';
+} from '../../constants/chart-data-config.constant';
 
 @Component({
   selector: 'app-speed-chart',
@@ -36,16 +36,20 @@ export class SpeedChartComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     // Tracking rout change
-    if (changes['routePoints'] && this.routePoints) this.updateChart();
+    if (changes['routePoints'] && this.routePoints) {
+      this.updateChart();
+    }
     this.chart?.update();
   }
 
-  // Updating chart data according to selected route
+  // Updating chart data according to the selected route
   public updateChart(): void {
-    // Ensuring route readines
-    if (!this.routePoints) return;
+    // Ensuring route readiness
+    if (!this.routePoints) {
+      return;
+    }
 
-    // Transform routePoints into chart data format and update chart dataset and labels
+    // Transform routePoints into a chart data format and update chart datasets and labels
     const data = this.routePoints.map((point) => ({
       x: new Date(point[2]).getTime(),
       y: point[3],

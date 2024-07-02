@@ -6,9 +6,9 @@ import {
 import { RouterOutlet } from '@angular/router';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import { BaseChartDirective } from 'ng2-charts';
-import { MapComponent } from './map/map.component';
-import { RoutePickerComponent } from './route-picker/route-picker.component';
-import { SpeedChartComponent } from './speed-chart/speed-chart.component';
+import { MapComponent } from './components/map/map.component';
+import { RoutePickerComponent } from './components/route-picker/route-picker.component';
+import { SpeedChartComponent } from './components/speed-chart/speed-chart.component';
 import { IRoutePoint } from './interfaces/IRoutePoint.interface';
 import IShipRoute from './interfaces/IShipRoute.interface';
 

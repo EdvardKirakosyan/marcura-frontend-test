@@ -119,10 +119,6 @@ Run `npm run lint:fix` to automatically fix linting errors.
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
 ## Acknowledgments
 
 - [Angular](https://angular.io/)
@@ -132,4 +128,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - [Chart.js](https://www.chartjs.org/)
 - [PapaParse](https://www.papaparse.com/)
 - [Edward Kirakosyan](https://github.com/EdwardKirakosyan) - Author
-

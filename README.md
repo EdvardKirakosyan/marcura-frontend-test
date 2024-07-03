@@ -22,6 +22,60 @@ This project visualizes sea routes on a global map using Angular. It processes a
 4. A graph/chart component shows how the speed changes over time for the selected route.
 5. (Bonus) Color the line on the map according to vessel speed: close to the port (slow, e.g., red) and open sea (fast, e.g., green).
 
+## Implementation Method
+
+### Chosen Method: Leaflet, Chart.js
+
+#### Leaflet
+Leaflet was chosen for map visualization due to its lightweight nature and ease of integration.
+
+**Pros:**
+- Lightweight and fast.
+- Easy to integrate with Angular.
+- Extensive plugin ecosystem.
+
+**Cons:**
+- Less out-of-the-box functionality compared to some other mapping libraries.
+- Requires additional plugins for advanced features.
+
+#### Chart.js
+Chart.js was used for visualizing speed changes over time.
+
+**Pros:**
+- Simple and easy to use.
+- Responsive and customizable charts.
+- Good documentation and community support.
+
+**Cons:**
+- Limited in terms of advanced chart types.
+- Performance can be an issue with large datasets.
+
+### Alternatives Considered
+
+1. **Mapbox GL JS**
+   - **Pros:**
+     - High performance with large datasets.
+     - Advanced features and styling options.
+   - **Cons:**
+     - More complex and heavier than Leaflet.
+     - Licensing costs for commercial use.
+
+2. **D3.js for Charts**
+   - **Pros:**
+     - Highly customizable and flexible.
+     - Can handle complex data visualizations.
+   - **Cons:**
+     - Steeper learning curve.
+     - More boilerplate code compared to Chart.js.
+
+## Assumptions
+
+- The CSV file format will remain consistent as described.
+- Users have a basic understanding of navigating a web application.
+- The application will be primarily used on modern browsers with ES6 support.
+- Users will manually select a route to visualize it on the map.
+- The color gradient for vessel speed will be sufficient to represent speed variations.
+
 ## Getting Started
 
 ### Prerequisites
